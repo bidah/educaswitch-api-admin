@@ -26,6 +26,10 @@
     },
     "order": {
       "type": "integer"
+    },
+    "indicator": {
+      "model": "indicator",
+      "via": "sessions"
     }
   }
 }

@@ -1,0 +1,23 @@
+{
+  "connection": "default",
+  "collectionName": "indicator",
+  "info": {
+    "name": "indicator",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "order": {
+      "type": "integer"
+    },
+    "sessions": {
+      "collection": "session",
+      "via": "indicator"
+    }
+  }
+}

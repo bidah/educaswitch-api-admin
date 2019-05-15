@@ -78,6 +78,14 @@ type createAttachmentPayload {
   attachment: Attachment
 }
 
+input createIndicatorInput {
+  data: IndicatorInput
+}
+
+type createIndicatorPayload {
+  indicator: Indicator
+}
+
 input createRoleInput {
   data: RoleInput
 }
@@ -129,6 +137,14 @@ input deleteAttachmentInput {
 
 type deleteAttachmentPayload {
   attachment: Attachment
+}
+
+input deleteIndicatorInput {
+  where: InputID
+}
+
+type deleteIndicatorPayload {
+  indicator: Indicator
 }
 
 input deleteRoleInput {
@@ -190,6 +206,12 @@ input editFileInput {
   related: [ID]
 }
 
+input editIndicatorInput {
+  title: String
+  order: Int
+  sessions: [ID]
+}
+
 input editRoleInput {
   name: String
   description: String
@@ -204,6 +226,7 @@ input editSessionInput {
   video: ID
   stages: [ID]
   order: Int
+  indicator: ID
 }
 
 input editStageInput {
@@ -243,6 +266,92 @@ input FileInput {
   related: [ID]
 }
 
+type Indicator {
+  _id: ID!
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  title: String
+  order: Int
+  sessions(sort: String, limit: Int, start: Int, where: JSON): [Session]
+}
+
+type IndicatorAggregator {
+  count: Int
+  totalCount: Int
+  sum: IndicatorAggregatorSum
+  avg: IndicatorAggregatorAvg
+  min: IndicatorAggregatorMin
+  max: IndicatorAggregatorMax
+}
+
+type IndicatorAggregatorAvg {
+  order: Float
+}
+
+type IndicatorAggregatorMax {
+  order: Float
+}
+
+type IndicatorAggregatorMin {
+  order: Float
+}
+
+type IndicatorAggregatorSum {
+  order: Float
+}
+
+type IndicatorConnection {
+  values: [Indicator]
+  groupBy: IndicatorGroupBy
+  aggregate: IndicatorAggregator
+}
+
+type IndicatorConnection_id {
+  key: ID
+  connection: IndicatorConnection
+}
+
+type IndicatorConnectionCreatedAt {
+  key: DateTime
+  connection: IndicatorConnection
+}
+
+type IndicatorConnectionId {
+  key: ID
+  connection: IndicatorConnection
+}
+
+type IndicatorConnectionOrder {
+  key: Int
+  connection: IndicatorConnection
+}
+
+type IndicatorConnectionTitle {
+  key: String
+  connection: IndicatorConnection
+}
+
+type IndicatorConnectionUpdatedAt {
+  key: DateTime
+  connection: IndicatorConnection
+}
+
+type IndicatorGroupBy {
+  _id: [IndicatorConnection_id]
+  id: [IndicatorConnectionId]
+  createdAt: [IndicatorConnectionCreatedAt]
+  updatedAt: [IndicatorConnectionUpdatedAt]
+  title: [IndicatorConnectionTitle]
+  order: [IndicatorConnectionOrder]
+}
+
+input IndicatorInput {
+  title: String
+  order: Int
+  sessions: [ID]
+}
+
 input InputID {
   id: ID!
 }
@@ -255,12 +364,15 @@ scalar JSON
 """The `Long` scalar type represents 52-bit integers"""
 scalar Long
 
-union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Attachment | createAttachmentPayload | updateAttachmentPayload | deleteAttachmentPayload | AttachmentConnection | AttachmentAggregator | AttachmentGroupBy | AttachmentConnection_id | AttachmentConnectionId | AttachmentConnectionCreatedAt | AttachmentConnectionUpdatedAt | AttachmentConnectionType | AttachmentConnectionSource | AttachmentConnectionStep | Session | createSessionPayload | updateSessionPayload | deleteSessionPayload | SessionConnection | SessionAggregator | SessionAggregatorSum | SessionAggregatorAvg | SessionAggregatorMin | SessionAggregatorMax | SessionGroupBy | SessionConnection_id | SessionConnectionId | SessionConnectionCreatedAt | SessionConnectionUpdatedAt | SessionConnectionTitle | SessionConnectionObjective | SessionConnectionVideo | SessionConnectionOrder | Stage | createStagePayload | updateStagePayload | deleteStagePayload | StageConnection | StageAggregator | StageAggregatorSum | StageAggregatorAvg | StageAggregatorMin | StageAggregatorMax | StageGroupBy | StageConnection_id | StageConnectionId | StageConnectionCreatedAt | StageConnectionUpdatedAt | StageConnectionOrder | StageConnectionTitle | StageConnectionSession | Step | createStepPayload | updateStepPayload | deleteStepPayload | StepConnection | StepAggregator | StepGroupBy | StepConnection_id | StepConnectionId | StepConnectionCreatedAt | StepConnectionUpdatedAt | StepConnectionContent | StepConnectionStage | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileGroupBy | UploadFileConnection_id | UploadFileConnectionId | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionHash | UploadFileConnectionSha256 | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionProvider | UploadFileConnectionPublic_id | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnection_id | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnection_id | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole
+union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Attachment | createAttachmentPayload | updateAttachmentPayload | deleteAttachmentPayload | AttachmentConnection | AttachmentAggregator | AttachmentGroupBy | AttachmentConnection_id | AttachmentConnectionId | AttachmentConnectionCreatedAt | AttachmentConnectionUpdatedAt | AttachmentConnectionType | AttachmentConnectionSource | AttachmentConnectionStep | Indicator | createIndicatorPayload | updateIndicatorPayload | deleteIndicatorPayload | IndicatorConnection | IndicatorAggregator | IndicatorAggregatorSum | IndicatorAggregatorAvg | IndicatorAggregatorMin | IndicatorAggregatorMax | IndicatorGroupBy | IndicatorConnection_id | IndicatorConnectionId | IndicatorConnectionCreatedAt | IndicatorConnectionUpdatedAt | IndicatorConnectionTitle | IndicatorConnectionOrder | Session | createSessionPayload | updateSessionPayload | deleteSessionPayload | SessionConnection | SessionAggregator | SessionAggregatorSum | SessionAggregatorAvg | SessionAggregatorMin | SessionAggregatorMax | SessionGroupBy | SessionConnection_id | SessionConnectionId | SessionConnectionCreatedAt | SessionConnectionUpdatedAt | SessionConnectionTitle | SessionConnectionObjective | SessionConnectionVideo | SessionConnectionOrder | SessionConnectionIndicator | Stage | createStagePayload | updateStagePayload | deleteStagePayload | StageConnection | StageAggregator | StageAggregatorSum | StageAggregatorAvg | StageAggregatorMin | StageAggregatorMax | StageGroupBy | StageConnection_id | StageConnectionId | StageConnectionCreatedAt | StageConnectionUpdatedAt | StageConnectionOrder | StageConnectionTitle | StageConnectionSession | Step | createStepPayload | updateStepPayload | deleteStepPayload | StepConnection | StepAggregator | StepGroupBy | StepConnection_id | StepConnectionId | StepConnectionCreatedAt | StepConnectionUpdatedAt | StepConnectionContent | StepConnectionStage | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileGroupBy | UploadFileConnection_id | UploadFileConnectionId | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionHash | UploadFileConnectionSha256 | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionProvider | UploadFileConnectionPublic_id | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnection_id | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnection_id | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole
 
 type Mutation {
   createAttachment(input: createAttachmentInput): createAttachmentPayload
   updateAttachment(input: updateAttachmentInput): updateAttachmentPayload
   deleteAttachment(input: deleteAttachmentInput): deleteAttachmentPayload
+  createIndicator(input: createIndicatorInput): createIndicatorPayload
+  updateIndicator(input: updateIndicatorInput): updateIndicatorPayload
+  deleteIndicator(input: deleteIndicatorInput): deleteIndicatorPayload
   createSession(input: createSessionInput): createSessionPayload
   updateSession(input: updateSessionInput): updateSessionPayload
   deleteSession(input: deleteSessionInput): deleteSessionPayload
@@ -295,6 +407,9 @@ type Query {
   attachment(id: ID!): Attachment
   attachments(sort: String, limit: Int, start: Int, where: JSON): [Attachment]
   attachmentsConnection(sort: String, limit: Int, start: Int, where: JSON): AttachmentConnection
+  indicator(id: ID!): Indicator
+  indicators(sort: String, limit: Int, start: Int, where: JSON): [Indicator]
+  indicatorsConnection(sort: String, limit: Int, start: Int, where: JSON): IndicatorConnection
   session(id: ID!): Session
   sessions(sort: String, limit: Int, start: Int, where: JSON): [Session]
   sessionsConnection(sort: String, limit: Int, start: Int, where: JSON): SessionConnection
@@ -336,6 +451,7 @@ type Session {
   objective: String
   video: UploadFile
   order: Int
+  indicator: Indicator
   stages(sort: String, limit: Int, start: Int, where: JSON): [Stage]
 }
 
@@ -385,6 +501,11 @@ type SessionConnectionId {
   connection: SessionConnection
 }
 
+type SessionConnectionIndicator {
+  key: ID
+  connection: SessionConnection
+}
+
 type SessionConnectionObjective {
   key: String
   connection: SessionConnection
@@ -419,6 +540,7 @@ type SessionGroupBy {
   objective: [SessionConnectionObjective]
   video: [SessionConnectionVideo]
   order: [SessionConnectionOrder]
+  indicator: [SessionConnectionIndicator]
 }
 
 input SessionInput {
@@ -427,6 +549,7 @@ input SessionInput {
   video: ID
   stages: [ID]
   order: Int
+  indicator: ID
 }
 
 type Stage {
@@ -596,6 +719,15 @@ input updateAttachmentInput {
 
 type updateAttachmentPayload {
   attachment: Attachment
+}
+
+input updateIndicatorInput {
+  where: InputID
+  data: editIndicatorInput
+}
+
+type updateIndicatorPayload {
+  indicator: Indicator
 }
 
 input updateRoleInput {
