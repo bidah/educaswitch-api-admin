@@ -1,3 +1,75 @@
+type Attachment {
+  _id: ID!
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  type: String
+  source: UploadFile
+}
+
+type AttachmentAggregator {
+  count: Int
+  totalCount: Int
+}
+
+type AttachmentConnection {
+  values: [Attachment]
+  groupBy: AttachmentGroupBy
+  aggregate: AttachmentAggregator
+}
+
+type AttachmentConnection_id {
+  key: ID
+  connection: AttachmentConnection
+}
+
+type AttachmentConnectionCreatedAt {
+  key: DateTime
+  connection: AttachmentConnection
+}
+
+type AttachmentConnectionId {
+  key: ID
+  connection: AttachmentConnection
+}
+
+type AttachmentConnectionSource {
+  key: ID
+  connection: AttachmentConnection
+}
+
+type AttachmentConnectionType {
+  key: String
+  connection: AttachmentConnection
+}
+
+type AttachmentConnectionUpdatedAt {
+  key: DateTime
+  connection: AttachmentConnection
+}
+
+type AttachmentGroupBy {
+  _id: [AttachmentConnection_id]
+  id: [AttachmentConnectionId]
+  createdAt: [AttachmentConnectionCreatedAt]
+  updatedAt: [AttachmentConnectionUpdatedAt]
+  type: [AttachmentConnectionType]
+  source: [AttachmentConnectionSource]
+}
+
+input AttachmentInput {
+  type: String
+  source: ID
+}
+
+input createAttachmentInput {
+  data: AttachmentInput
+}
+
+type createAttachmentPayload {
+  attachment: Attachment
+}
+
 input createRoleInput {
   data: RoleInput
 }
@@ -27,6 +99,14 @@ The `DateTime` scalar represents a date and time following the ISO 8601 standard
 """
 scalar DateTime
 
+input deleteAttachmentInput {
+  where: InputID
+}
+
+type deleteAttachmentPayload {
+  attachment: Attachment
+}
+
 input deleteRoleInput {
   where: InputID
 }
@@ -49,6 +129,11 @@ input deleteUserInput {
 
 type deleteUserPayload {
   user: UsersPermissionsUser
+}
+
+input editAttachmentInput {
+  type: String
+  source: ID
 }
 
 input editFileInput {
@@ -112,9 +197,12 @@ scalar JSON
 """The `Long` scalar type represents 52-bit integers"""
 scalar Long
 
-union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Step | createStepPayload | updateStepPayload | deleteStepPayload | StepConnection | StepAggregator | StepGroupBy | StepConnection_id | StepConnectionId | StepConnectionCreatedAt | StepConnectionUpdatedAt | StepConnectionContent | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileGroupBy | UploadFileConnection_id | UploadFileConnectionId | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionHash | UploadFileConnectionSha256 | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionProvider | UploadFileConnectionPublic_id | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnection_id | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnection_id | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole
+union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Attachment | createAttachmentPayload | updateAttachmentPayload | deleteAttachmentPayload | AttachmentConnection | AttachmentAggregator | AttachmentGroupBy | AttachmentConnection_id | AttachmentConnectionId | AttachmentConnectionCreatedAt | AttachmentConnectionUpdatedAt | AttachmentConnectionType | AttachmentConnectionSource | Step | createStepPayload | updateStepPayload | deleteStepPayload | StepConnection | StepAggregator | StepGroupBy | StepConnection_id | StepConnectionId | StepConnectionCreatedAt | StepConnectionUpdatedAt | StepConnectionContent | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileGroupBy | UploadFileConnection_id | UploadFileConnectionId | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionHash | UploadFileConnectionSha256 | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionProvider | UploadFileConnectionPublic_id | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnection_id | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnection_id | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole
 
 type Mutation {
+  createAttachment(input: createAttachmentInput): createAttachmentPayload
+  updateAttachment(input: updateAttachmentInput): updateAttachmentPayload
+  deleteAttachment(input: deleteAttachmentInput): deleteAttachmentPayload
   createStep(input: createStepInput): createStepPayload
   updateStep(input: updateStepInput): updateStepPayload
   deleteStep(input: deleteStepInput): deleteStepPayload
@@ -140,6 +228,9 @@ type Mutation {
 }
 
 type Query {
+  attachment(id: ID!): Attachment
+  attachments(sort: String, limit: Int, start: Int, where: JSON): [Attachment]
+  attachmentsConnection(sort: String, limit: Int, start: Int, where: JSON): AttachmentConnection
   step(id: ID!): Step
   steps(sort: String, limit: Int, start: Int, where: JSON): [Step]
   stepsConnection(sort: String, limit: Int, start: Int, where: JSON): StepConnection
@@ -220,6 +311,15 @@ type StepGroupBy {
 
 input StepInput {
   content: String
+}
+
+input updateAttachmentInput {
+  where: InputID
+  data: editAttachmentInput
+}
+
+type updateAttachmentPayload {
+  attachment: Attachment
 }
 
 input updateRoleInput {
