@@ -251,6 +251,7 @@ input editStageInput {
   title: String
   steps: [ID]
   session: ID
+  dsds: DateTime
 }
 
 input editStepInput {
@@ -394,7 +395,7 @@ scalar JSON
 """The `Long` scalar type represents 52-bit integers"""
 scalar Long
 
-union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Attachment | createAttachmentPayload | updateAttachmentPayload | deleteAttachmentPayload | AttachmentConnection | AttachmentAggregator | AttachmentGroupBy | AttachmentConnection_id | AttachmentConnectionId | AttachmentConnectionCreatedAt | AttachmentConnectionUpdatedAt | AttachmentConnectionType | AttachmentConnectionSource | AttachmentConnectionStep | Indicator | createIndicatorPayload | updateIndicatorPayload | deleteIndicatorPayload | IndicatorConnection | IndicatorAggregator | IndicatorAggregatorSum | IndicatorAggregatorAvg | IndicatorAggregatorMin | IndicatorAggregatorMax | IndicatorGroupBy | IndicatorConnection_id | IndicatorConnectionId | IndicatorConnectionCreatedAt | IndicatorConnectionUpdatedAt | IndicatorConnectionTitle | IndicatorConnectionOrder | IndicatorConnectionTerm | Session | createSessionPayload | updateSessionPayload | deleteSessionPayload | SessionConnection | SessionAggregator | SessionAggregatorSum | SessionAggregatorAvg | SessionAggregatorMin | SessionAggregatorMax | SessionGroupBy | SessionConnection_id | SessionConnectionId | SessionConnectionCreatedAt | SessionConnectionUpdatedAt | SessionConnectionTitle | SessionConnectionObjective | SessionConnectionVideo | SessionConnectionOrder | SessionConnectionIndicator | Stage | createStagePayload | updateStagePayload | deleteStagePayload | StageConnection | StageAggregator | StageAggregatorSum | StageAggregatorAvg | StageAggregatorMin | StageAggregatorMax | StageGroupBy | StageConnection_id | StageConnectionId | StageConnectionCreatedAt | StageConnectionUpdatedAt | StageConnectionOrder | StageConnectionTitle | StageConnectionSession | Step | createStepPayload | updateStepPayload | deleteStepPayload | StepConnection | StepAggregator | StepGroupBy | StepConnection_id | StepConnectionId | StepConnectionCreatedAt | StepConnectionUpdatedAt | StepConnectionContent | StepConnectionStage | Term | createTermPayload | updateTermPayload | deleteTermPayload | TermConnection | TermAggregator | TermAggregatorSum | TermAggregatorAvg | TermAggregatorMin | TermAggregatorMax | TermGroupBy | TermConnection_id | TermConnectionId | TermConnectionCreatedAt | TermConnectionUpdatedAt | TermConnectionNumber | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileGroupBy | UploadFileConnection_id | UploadFileConnectionId | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionHash | UploadFileConnectionSha256 | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionProvider | UploadFileConnectionPublic_id | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnection_id | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnection_id | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole
+union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Attachment | createAttachmentPayload | updateAttachmentPayload | deleteAttachmentPayload | AttachmentConnection | AttachmentAggregator | AttachmentGroupBy | AttachmentConnection_id | AttachmentConnectionId | AttachmentConnectionCreatedAt | AttachmentConnectionUpdatedAt | AttachmentConnectionType | AttachmentConnectionSource | AttachmentConnectionStep | Indicator | createIndicatorPayload | updateIndicatorPayload | deleteIndicatorPayload | IndicatorConnection | IndicatorAggregator | IndicatorAggregatorSum | IndicatorAggregatorAvg | IndicatorAggregatorMin | IndicatorAggregatorMax | IndicatorGroupBy | IndicatorConnection_id | IndicatorConnectionId | IndicatorConnectionCreatedAt | IndicatorConnectionUpdatedAt | IndicatorConnectionTitle | IndicatorConnectionOrder | IndicatorConnectionTerm | Session | createSessionPayload | updateSessionPayload | deleteSessionPayload | SessionConnection | SessionAggregator | SessionAggregatorSum | SessionAggregatorAvg | SessionAggregatorMin | SessionAggregatorMax | SessionGroupBy | SessionConnection_id | SessionConnectionId | SessionConnectionCreatedAt | SessionConnectionUpdatedAt | SessionConnectionTitle | SessionConnectionObjective | SessionConnectionVideo | SessionConnectionOrder | SessionConnectionIndicator | Stage | createStagePayload | updateStagePayload | deleteStagePayload | StageConnection | StageAggregator | StageAggregatorSum | StageAggregatorAvg | StageAggregatorMin | StageAggregatorMax | StageGroupBy | StageConnection_id | StageConnectionId | StageConnectionCreatedAt | StageConnectionUpdatedAt | StageConnectionOrder | StageConnectionTitle | StageConnectionSession | StageConnectionDsds | Step | createStepPayload | updateStepPayload | deleteStepPayload | StepConnection | StepAggregator | StepGroupBy | StepConnection_id | StepConnectionId | StepConnectionCreatedAt | StepConnectionUpdatedAt | StepConnectionContent | StepConnectionStage | Term | createTermPayload | updateTermPayload | deleteTermPayload | TermConnection | TermAggregator | TermAggregatorSum | TermAggregatorAvg | TermAggregatorMin | TermAggregatorMax | TermGroupBy | TermConnection_id | TermConnectionId | TermConnectionCreatedAt | TermConnectionUpdatedAt | TermConnectionNumber | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileGroupBy | UploadFileConnection_id | UploadFileConnectionId | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionHash | UploadFileConnectionSha256 | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionProvider | UploadFileConnectionPublic_id | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnection_id | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnection_id | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole
 
 type Mutation {
   createAttachment(input: createAttachmentInput): createAttachmentPayload
@@ -596,6 +597,7 @@ type Stage {
   order: Int
   title: String
   session: Session
+  dsds: DateTime
   steps(sort: String, limit: Int, start: Int, where: JSON): [Step]
 }
 
@@ -640,6 +642,11 @@ type StageConnectionCreatedAt {
   connection: StageConnection
 }
 
+type StageConnectionDsds {
+  key: DateTime
+  connection: StageConnection
+}
+
 type StageConnectionId {
   key: ID
   connection: StageConnection
@@ -673,6 +680,7 @@ type StageGroupBy {
   order: [StageConnectionOrder]
   title: [StageConnectionTitle]
   session: [StageConnectionSession]
+  dsds: [StageConnectionDsds]
 }
 
 input StageInput {
@@ -680,6 +688,7 @@ input StageInput {
   title: String
   steps: [ID]
   session: ID
+  dsds: DateTime
 }
 
 type Step {
