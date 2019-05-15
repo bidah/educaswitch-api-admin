@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/attachments",
+      "handler": "Attachment.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/attachments/count",
+      "handler": "Attachment.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/attachments/:_id",
+      "handler": "Attachment.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/attachments",
+      "handler": "Attachment.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/attachments/:_id",
+      "handler": "Attachment.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/attachments/:_id",
+      "handler": "Attachment.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
