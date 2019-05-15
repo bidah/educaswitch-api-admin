@@ -12,12 +12,12 @@
     "order": {
       "type": "integer"
     },
-    "step": {
-      "model": "step",
-      "via": "stage"
-    },
     "title": {
       "type": "string"
+    },
+    "steps": {
+      "collection": "step",
+      "via": "stage"
     }
   }
 }

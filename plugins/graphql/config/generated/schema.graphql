@@ -184,8 +184,8 @@ input editRoleInput {
 
 input editStageInput {
   order: Int
-  step: ID
   title: String
+  steps: [ID]
 }
 
 input editStepInput {
@@ -230,7 +230,7 @@ scalar JSON
 """The `Long` scalar type represents 52-bit integers"""
 scalar Long
 
-union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Attachment | createAttachmentPayload | updateAttachmentPayload | deleteAttachmentPayload | AttachmentConnection | AttachmentAggregator | AttachmentGroupBy | AttachmentConnection_id | AttachmentConnectionId | AttachmentConnectionCreatedAt | AttachmentConnectionUpdatedAt | AttachmentConnectionType | AttachmentConnectionSource | AttachmentConnectionStep | Stage | createStagePayload | updateStagePayload | deleteStagePayload | StageConnection | StageAggregator | StageAggregatorSum | StageAggregatorAvg | StageAggregatorMin | StageAggregatorMax | StageGroupBy | StageConnection_id | StageConnectionId | StageConnectionCreatedAt | StageConnectionUpdatedAt | StageConnectionOrder | StageConnectionStep | StageConnectionTitle | Step | createStepPayload | updateStepPayload | deleteStepPayload | StepConnection | StepAggregator | StepGroupBy | StepConnection_id | StepConnectionId | StepConnectionCreatedAt | StepConnectionUpdatedAt | StepConnectionContent | StepConnectionStage | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileGroupBy | UploadFileConnection_id | UploadFileConnectionId | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionHash | UploadFileConnectionSha256 | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionProvider | UploadFileConnectionPublic_id | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnection_id | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnection_id | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole
+union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Attachment | createAttachmentPayload | updateAttachmentPayload | deleteAttachmentPayload | AttachmentConnection | AttachmentAggregator | AttachmentGroupBy | AttachmentConnection_id | AttachmentConnectionId | AttachmentConnectionCreatedAt | AttachmentConnectionUpdatedAt | AttachmentConnectionType | AttachmentConnectionSource | AttachmentConnectionStep | Stage | createStagePayload | updateStagePayload | deleteStagePayload | StageConnection | StageAggregator | StageAggregatorSum | StageAggregatorAvg | StageAggregatorMin | StageAggregatorMax | StageGroupBy | StageConnection_id | StageConnectionId | StageConnectionCreatedAt | StageConnectionUpdatedAt | StageConnectionOrder | StageConnectionTitle | Step | createStepPayload | updateStepPayload | deleteStepPayload | StepConnection | StepAggregator | StepGroupBy | StepConnection_id | StepConnectionId | StepConnectionCreatedAt | StepConnectionUpdatedAt | StepConnectionContent | StepConnectionStage | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileGroupBy | UploadFileConnection_id | UploadFileConnectionId | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionHash | UploadFileConnectionSha256 | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionProvider | UploadFileConnectionPublic_id | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnection_id | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnection_id | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole
 
 type Mutation {
   createAttachment(input: createAttachmentInput): createAttachmentPayload
@@ -302,8 +302,8 @@ type Stage {
   createdAt: DateTime!
   updatedAt: DateTime!
   order: Int
-  step: Step
   title: String
+  steps(sort: String, limit: Int, start: Int, where: JSON): [Step]
 }
 
 type StageAggregator {
@@ -357,11 +357,6 @@ type StageConnectionOrder {
   connection: StageConnection
 }
 
-type StageConnectionStep {
-  key: ID
-  connection: StageConnection
-}
-
 type StageConnectionTitle {
   key: String
   connection: StageConnection
@@ -378,14 +373,13 @@ type StageGroupBy {
   createdAt: [StageConnectionCreatedAt]
   updatedAt: [StageConnectionUpdatedAt]
   order: [StageConnectionOrder]
-  step: [StageConnectionStep]
   title: [StageConnectionTitle]
 }
 
 input StageInput {
   order: Int
-  step: ID
   title: String
+  steps: [ID]
 }
 
 type Step {
