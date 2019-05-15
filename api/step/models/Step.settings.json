@@ -1,6 +1,6 @@
 {
   "connection": "default",
-  "collectionName": "",
+  "collectionName": "step",
   "info": {
     "name": "step",
     "description": ""
@@ -14,6 +14,10 @@
     },
     "attachments": {
       "collection": "attachment",
+      "via": "step"
+    },
+    "stage": {
+      "model": "stage",
       "via": "step"
     }
   }

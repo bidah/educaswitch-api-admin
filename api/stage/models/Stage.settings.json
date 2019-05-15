@@ -1,0 +1,23 @@
+{
+  "connection": "default",
+  "collectionName": "stage",
+  "info": {
+    "name": "stage",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "order": {
+      "type": "integer"
+    },
+    "step": {
+      "model": "step",
+      "via": "stage"
+    },
+    "title": {
+      "type": "string"
+    }
+  }
+}
