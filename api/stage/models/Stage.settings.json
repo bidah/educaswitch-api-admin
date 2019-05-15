@@ -18,6 +18,10 @@
     "steps": {
       "collection": "step",
       "via": "stage"
+    },
+    "session": {
+      "model": "session",
+      "via": "stages"
     }
   }
 }

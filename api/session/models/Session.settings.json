@@ -1,0 +1,31 @@
+{
+  "connection": "default",
+  "collectionName": "session",
+  "info": {
+    "name": "session",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "objective": {
+      "type": "string"
+    },
+    "video": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload"
+    },
+    "stages": {
+      "collection": "stage",
+      "via": "session"
+    },
+    "order": {
+      "type": "integer"
+    }
+  }
+}
