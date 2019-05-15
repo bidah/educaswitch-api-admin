@@ -11,6 +11,10 @@
   "attributes": {
     "content": {
       "type": "string"
+    },
+    "attachment": {
+      "model": "attachment",
+      "via": "step"
     }
   }
 }

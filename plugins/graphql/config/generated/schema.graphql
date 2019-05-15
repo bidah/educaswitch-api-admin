@@ -5,6 +5,7 @@ type Attachment {
   updatedAt: DateTime!
   type: String
   source: UploadFile
+  step: Step
 }
 
 type AttachmentAggregator {
@@ -38,6 +39,11 @@ type AttachmentConnectionSource {
   connection: AttachmentConnection
 }
 
+type AttachmentConnectionStep {
+  key: ID
+  connection: AttachmentConnection
+}
+
 type AttachmentConnectionType {
   key: String
   connection: AttachmentConnection
@@ -55,11 +61,13 @@ type AttachmentGroupBy {
   updatedAt: [AttachmentConnectionUpdatedAt]
   type: [AttachmentConnectionType]
   source: [AttachmentConnectionSource]
+  step: [AttachmentConnectionStep]
 }
 
 input AttachmentInput {
   type: String
   source: ID
+  step: ID
 }
 
 input createAttachmentInput {
@@ -134,6 +142,7 @@ type deleteUserPayload {
 input editAttachmentInput {
   type: String
   source: ID
+  step: ID
 }
 
 input editFileInput {
@@ -159,6 +168,7 @@ input editRoleInput {
 
 input editStepInput {
   content: String
+  attachment: ID
 }
 
 input editUserInput {
@@ -197,7 +207,7 @@ scalar JSON
 """The `Long` scalar type represents 52-bit integers"""
 scalar Long
 
-union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Attachment | createAttachmentPayload | updateAttachmentPayload | deleteAttachmentPayload | AttachmentConnection | AttachmentAggregator | AttachmentGroupBy | AttachmentConnection_id | AttachmentConnectionId | AttachmentConnectionCreatedAt | AttachmentConnectionUpdatedAt | AttachmentConnectionType | AttachmentConnectionSource | Step | createStepPayload | updateStepPayload | deleteStepPayload | StepConnection | StepAggregator | StepGroupBy | StepConnection_id | StepConnectionId | StepConnectionCreatedAt | StepConnectionUpdatedAt | StepConnectionContent | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileGroupBy | UploadFileConnection_id | UploadFileConnectionId | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionHash | UploadFileConnectionSha256 | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionProvider | UploadFileConnectionPublic_id | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnection_id | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnection_id | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole
+union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Attachment | createAttachmentPayload | updateAttachmentPayload | deleteAttachmentPayload | AttachmentConnection | AttachmentAggregator | AttachmentGroupBy | AttachmentConnection_id | AttachmentConnectionId | AttachmentConnectionCreatedAt | AttachmentConnectionUpdatedAt | AttachmentConnectionType | AttachmentConnectionSource | AttachmentConnectionStep | Step | createStepPayload | updateStepPayload | deleteStepPayload | StepConnection | StepAggregator | StepGroupBy | StepConnection_id | StepConnectionId | StepConnectionCreatedAt | StepConnectionUpdatedAt | StepConnectionContent | StepConnectionAttachment | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileGroupBy | UploadFileConnection_id | UploadFileConnectionId | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionHash | UploadFileConnectionSha256 | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionProvider | UploadFileConnectionPublic_id | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnection_id | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnection_id | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole
 
 type Mutation {
   createAttachment(input: createAttachmentInput): createAttachmentPayload
@@ -263,6 +273,7 @@ type Step {
   createdAt: DateTime!
   updatedAt: DateTime!
   content: String
+  attachment: Attachment
 }
 
 type StepAggregator {
@@ -277,6 +288,11 @@ type StepConnection {
 }
 
 type StepConnection_id {
+  key: ID
+  connection: StepConnection
+}
+
+type StepConnectionAttachment {
   key: ID
   connection: StepConnection
 }
@@ -307,10 +323,12 @@ type StepGroupBy {
   createdAt: [StepConnectionCreatedAt]
   updatedAt: [StepConnectionUpdatedAt]
   content: [StepConnectionContent]
+  attachment: [StepConnectionAttachment]
 }
 
 input StepInput {
   content: String
+  attachment: ID
 }
 
 input updateAttachmentInput {

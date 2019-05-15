@@ -1,6 +1,6 @@
 {
   "connection": "default",
-  "collectionName": "",
+  "collectionName": "attachment",
   "info": {
     "name": "attachment",
     "description": ""
@@ -16,6 +16,10 @@
       "model": "file",
       "via": "related",
       "plugin": "upload"
+    },
+    "step": {
+      "model": "step",
+      "via": "attachment"
     }
   }
 }
