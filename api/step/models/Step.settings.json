@@ -12,8 +12,8 @@
     "content": {
       "type": "string"
     },
-    "attachment": {
-      "model": "attachment",
+    "attachments": {
+      "collection": "attachment",
       "via": "step"
     }
   }

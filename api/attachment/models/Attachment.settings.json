@@ -19,7 +19,7 @@
     },
     "step": {
       "model": "step",
-      "via": "attachment"
+      "via": "attachments"
     }
   }
 }
