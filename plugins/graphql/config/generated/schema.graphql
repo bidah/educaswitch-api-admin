@@ -6,6 +6,14 @@ type createRolePayload {
   role: UsersPermissionsRole
 }
 
+input createStepInput {
+  data: StepInput
+}
+
+type createStepPayload {
+  step: Step
+}
+
 input createUserInput {
   data: UserInput
 }
@@ -25,6 +33,14 @@ input deleteRoleInput {
 
 type deleteRolePayload {
   role: UsersPermissionsRole
+}
+
+input deleteStepInput {
+  where: InputID
+}
+
+type deleteStepPayload {
+  step: Step
 }
 
 input deleteUserInput {
@@ -54,6 +70,10 @@ input editRoleInput {
   type: String
   permissions: [ID]
   users: [ID]
+}
+
+input editStepInput {
+  content: String
 }
 
 input editUserInput {
@@ -92,9 +112,13 @@ scalar JSON
 """The `Long` scalar type represents 52-bit integers"""
 scalar Long
 
-union Morph = UsersPermissionsMe | UsersPermissionsMeRole | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileGroupBy | UploadFileConnection_id | UploadFileConnectionId | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionHash | UploadFileConnectionSha256 | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionProvider | UploadFileConnectionPublic_id | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnection_id | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnection_id | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole
+union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Step | createStepPayload | updateStepPayload | deleteStepPayload | StepConnection | StepAggregator | StepGroupBy | StepConnection_id | StepConnectionId | StepConnectionCreatedAt | StepConnectionUpdatedAt | StepConnectionContent | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileGroupBy | UploadFileConnection_id | UploadFileConnectionId | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionHash | UploadFileConnectionSha256 | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionProvider | UploadFileConnectionPublic_id | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnection_id | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnection_id | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole
 
 type Mutation {
+  createStep(input: createStepInput): createStepPayload
+  updateStep(input: updateStepInput): updateStepPayload
+  deleteStep(input: deleteStepInput): deleteStepPayload
+
   """Create a new role"""
   createRole(input: createRoleInput): createRolePayload
 
@@ -116,6 +140,9 @@ type Mutation {
 }
 
 type Query {
+  step(id: ID!): Step
+  steps(sort: String, limit: Int, start: Int, where: JSON): [Step]
+  stepsConnection(sort: String, limit: Int, start: Int, where: JSON): StepConnection
   files(sort: String, limit: Int, start: Int, where: JSON): [UploadFile]
   filesConnection(sort: String, limit: Int, start: Int, where: JSON): UploadFileConnection
   role(id: ID!): UsersPermissionsRole
@@ -139,6 +166,62 @@ input RoleInput {
   users: [ID]
 }
 
+type Step {
+  _id: ID!
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  content: String
+}
+
+type StepAggregator {
+  count: Int
+  totalCount: Int
+}
+
+type StepConnection {
+  values: [Step]
+  groupBy: StepGroupBy
+  aggregate: StepAggregator
+}
+
+type StepConnection_id {
+  key: ID
+  connection: StepConnection
+}
+
+type StepConnectionContent {
+  key: String
+  connection: StepConnection
+}
+
+type StepConnectionCreatedAt {
+  key: DateTime
+  connection: StepConnection
+}
+
+type StepConnectionId {
+  key: ID
+  connection: StepConnection
+}
+
+type StepConnectionUpdatedAt {
+  key: DateTime
+  connection: StepConnection
+}
+
+type StepGroupBy {
+  _id: [StepConnection_id]
+  id: [StepConnectionId]
+  createdAt: [StepConnectionCreatedAt]
+  updatedAt: [StepConnectionUpdatedAt]
+  content: [StepConnectionContent]
+}
+
+input StepInput {
+  content: String
+}
+
 input updateRoleInput {
   where: InputID
   data: editRoleInput
@@ -146,6 +229,15 @@ input updateRoleInput {
 
 type updateRolePayload {
   role: UsersPermissionsRole
+}
+
+input updateStepInput {
+  where: InputID
+  data: editStepInput
+}
+
+type updateStepPayload {
+  step: Step
 }
 
 input updateUserInput {
