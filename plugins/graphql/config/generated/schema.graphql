@@ -118,6 +118,14 @@ type createStepPayload {
   step: Step
 }
 
+input createTermInput {
+  data: TermInput
+}
+
+type createTermPayload {
+  term: Term
+}
+
 input createUserInput {
   data: UserInput
 }
@@ -179,6 +187,14 @@ type deleteStepPayload {
   step: Step
 }
 
+input deleteTermInput {
+  where: InputID
+}
+
+type deleteTermPayload {
+  term: Term
+}
+
 input deleteUserInput {
   where: InputID
 }
@@ -210,6 +226,7 @@ input editIndicatorInput {
   title: String
   order: Int
   sessions: [ID]
+  term: ID
 }
 
 input editRoleInput {
@@ -240,6 +257,11 @@ input editStepInput {
   content: String
   attachments: [ID]
   stage: ID
+}
+
+input editTermInput {
+  number: Int
+  indicators: [ID]
 }
 
 input editUserInput {
@@ -273,6 +295,7 @@ type Indicator {
   updatedAt: DateTime!
   title: String
   order: Int
+  term: Term
   sessions(sort: String, limit: Int, start: Int, where: JSON): [Session]
 }
 
@@ -327,6 +350,11 @@ type IndicatorConnectionOrder {
   connection: IndicatorConnection
 }
 
+type IndicatorConnectionTerm {
+  key: ID
+  connection: IndicatorConnection
+}
+
 type IndicatorConnectionTitle {
   key: String
   connection: IndicatorConnection
@@ -344,12 +372,14 @@ type IndicatorGroupBy {
   updatedAt: [IndicatorConnectionUpdatedAt]
   title: [IndicatorConnectionTitle]
   order: [IndicatorConnectionOrder]
+  term: [IndicatorConnectionTerm]
 }
 
 input IndicatorInput {
   title: String
   order: Int
   sessions: [ID]
+  term: ID
 }
 
 input InputID {
@@ -364,7 +394,7 @@ scalar JSON
 """The `Long` scalar type represents 52-bit integers"""
 scalar Long
 
-union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Attachment | createAttachmentPayload | updateAttachmentPayload | deleteAttachmentPayload | AttachmentConnection | AttachmentAggregator | AttachmentGroupBy | AttachmentConnection_id | AttachmentConnectionId | AttachmentConnectionCreatedAt | AttachmentConnectionUpdatedAt | AttachmentConnectionType | AttachmentConnectionSource | AttachmentConnectionStep | Indicator | createIndicatorPayload | updateIndicatorPayload | deleteIndicatorPayload | IndicatorConnection | IndicatorAggregator | IndicatorAggregatorSum | IndicatorAggregatorAvg | IndicatorAggregatorMin | IndicatorAggregatorMax | IndicatorGroupBy | IndicatorConnection_id | IndicatorConnectionId | IndicatorConnectionCreatedAt | IndicatorConnectionUpdatedAt | IndicatorConnectionTitle | IndicatorConnectionOrder | Session | createSessionPayload | updateSessionPayload | deleteSessionPayload | SessionConnection | SessionAggregator | SessionAggregatorSum | SessionAggregatorAvg | SessionAggregatorMin | SessionAggregatorMax | SessionGroupBy | SessionConnection_id | SessionConnectionId | SessionConnectionCreatedAt | SessionConnectionUpdatedAt | SessionConnectionTitle | SessionConnectionObjective | SessionConnectionVideo | SessionConnectionOrder | SessionConnectionIndicator | Stage | createStagePayload | updateStagePayload | deleteStagePayload | StageConnection | StageAggregator | StageAggregatorSum | StageAggregatorAvg | StageAggregatorMin | StageAggregatorMax | StageGroupBy | StageConnection_id | StageConnectionId | StageConnectionCreatedAt | StageConnectionUpdatedAt | StageConnectionOrder | StageConnectionTitle | StageConnectionSession | Step | createStepPayload | updateStepPayload | deleteStepPayload | StepConnection | StepAggregator | StepGroupBy | StepConnection_id | StepConnectionId | StepConnectionCreatedAt | StepConnectionUpdatedAt | StepConnectionContent | StepConnectionStage | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileGroupBy | UploadFileConnection_id | UploadFileConnectionId | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionHash | UploadFileConnectionSha256 | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionProvider | UploadFileConnectionPublic_id | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnection_id | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnection_id | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole
+union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Attachment | createAttachmentPayload | updateAttachmentPayload | deleteAttachmentPayload | AttachmentConnection | AttachmentAggregator | AttachmentGroupBy | AttachmentConnection_id | AttachmentConnectionId | AttachmentConnectionCreatedAt | AttachmentConnectionUpdatedAt | AttachmentConnectionType | AttachmentConnectionSource | AttachmentConnectionStep | Indicator | createIndicatorPayload | updateIndicatorPayload | deleteIndicatorPayload | IndicatorConnection | IndicatorAggregator | IndicatorAggregatorSum | IndicatorAggregatorAvg | IndicatorAggregatorMin | IndicatorAggregatorMax | IndicatorGroupBy | IndicatorConnection_id | IndicatorConnectionId | IndicatorConnectionCreatedAt | IndicatorConnectionUpdatedAt | IndicatorConnectionTitle | IndicatorConnectionOrder | IndicatorConnectionTerm | Session | createSessionPayload | updateSessionPayload | deleteSessionPayload | SessionConnection | SessionAggregator | SessionAggregatorSum | SessionAggregatorAvg | SessionAggregatorMin | SessionAggregatorMax | SessionGroupBy | SessionConnection_id | SessionConnectionId | SessionConnectionCreatedAt | SessionConnectionUpdatedAt | SessionConnectionTitle | SessionConnectionObjective | SessionConnectionVideo | SessionConnectionOrder | SessionConnectionIndicator | Stage | createStagePayload | updateStagePayload | deleteStagePayload | StageConnection | StageAggregator | StageAggregatorSum | StageAggregatorAvg | StageAggregatorMin | StageAggregatorMax | StageGroupBy | StageConnection_id | StageConnectionId | StageConnectionCreatedAt | StageConnectionUpdatedAt | StageConnectionOrder | StageConnectionTitle | StageConnectionSession | Step | createStepPayload | updateStepPayload | deleteStepPayload | StepConnection | StepAggregator | StepGroupBy | StepConnection_id | StepConnectionId | StepConnectionCreatedAt | StepConnectionUpdatedAt | StepConnectionContent | StepConnectionStage | Term | createTermPayload | updateTermPayload | deleteTermPayload | TermConnection | TermAggregator | TermAggregatorSum | TermAggregatorAvg | TermAggregatorMin | TermAggregatorMax | TermGroupBy | TermConnection_id | TermConnectionId | TermConnectionCreatedAt | TermConnectionUpdatedAt | TermConnectionNumber | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileGroupBy | UploadFileConnection_id | UploadFileConnectionId | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionHash | UploadFileConnectionSha256 | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionProvider | UploadFileConnectionPublic_id | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnection_id | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnection_id | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole
 
 type Mutation {
   createAttachment(input: createAttachmentInput): createAttachmentPayload
@@ -382,6 +412,9 @@ type Mutation {
   createStep(input: createStepInput): createStepPayload
   updateStep(input: updateStepInput): updateStepPayload
   deleteStep(input: deleteStepInput): deleteStepPayload
+  createTerm(input: createTermInput): createTermPayload
+  updateTerm(input: updateTermInput): updateTermPayload
+  deleteTerm(input: deleteTermInput): deleteTermPayload
 
   """Create a new role"""
   createRole(input: createRoleInput): createRolePayload
@@ -419,6 +452,9 @@ type Query {
   step(id: ID!): Step
   steps(sort: String, limit: Int, start: Int, where: JSON): [Step]
   stepsConnection(sort: String, limit: Int, start: Int, where: JSON): StepConnection
+  term(id: ID!): Term
+  terms(sort: String, limit: Int, start: Int, where: JSON): [Term]
+  termsConnection(sort: String, limit: Int, start: Int, where: JSON): TermConnection
   files(sort: String, limit: Int, start: Int, where: JSON): [UploadFile]
   filesConnection(sort: String, limit: Int, start: Int, where: JSON): UploadFileConnection
   role(id: ID!): UsersPermissionsRole
@@ -712,6 +748,84 @@ input StepInput {
   stage: ID
 }
 
+type Term {
+  _id: ID!
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  number: Int
+  indicators(sort: String, limit: Int, start: Int, where: JSON): [Indicator]
+}
+
+type TermAggregator {
+  count: Int
+  totalCount: Int
+  sum: TermAggregatorSum
+  avg: TermAggregatorAvg
+  min: TermAggregatorMin
+  max: TermAggregatorMax
+}
+
+type TermAggregatorAvg {
+  number: Float
+}
+
+type TermAggregatorMax {
+  number: Float
+}
+
+type TermAggregatorMin {
+  number: Float
+}
+
+type TermAggregatorSum {
+  number: Float
+}
+
+type TermConnection {
+  values: [Term]
+  groupBy: TermGroupBy
+  aggregate: TermAggregator
+}
+
+type TermConnection_id {
+  key: ID
+  connection: TermConnection
+}
+
+type TermConnectionCreatedAt {
+  key: DateTime
+  connection: TermConnection
+}
+
+type TermConnectionId {
+  key: ID
+  connection: TermConnection
+}
+
+type TermConnectionNumber {
+  key: Int
+  connection: TermConnection
+}
+
+type TermConnectionUpdatedAt {
+  key: DateTime
+  connection: TermConnection
+}
+
+type TermGroupBy {
+  _id: [TermConnection_id]
+  id: [TermConnectionId]
+  createdAt: [TermConnectionCreatedAt]
+  updatedAt: [TermConnectionUpdatedAt]
+  number: [TermConnectionNumber]
+}
+
+input TermInput {
+  number: Int
+  indicators: [ID]
+}
+
 input updateAttachmentInput {
   where: InputID
   data: editAttachmentInput
@@ -764,6 +878,15 @@ input updateStepInput {
 
 type updateStepPayload {
   step: Step
+}
+
+input updateTermInput {
+  where: InputID
+  data: editTermInput
+}
+
+type updateTermPayload {
+  term: Term
 }
 
 input updateUserInput {

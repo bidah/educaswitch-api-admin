@@ -18,6 +18,10 @@
     "sessions": {
       "collection": "session",
       "via": "indicator"
+    },
+    "term": {
+      "model": "term",
+      "via": "indicators"
     }
   }
 }
